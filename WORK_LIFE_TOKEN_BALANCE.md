@@ -159,6 +159,13 @@ Zed is a minimal rust based editor. With a penchant to AI features.
 
 ---
 
+## Plan vs. Build mode
+
+- **Plan mode** — the agent generates a plan of what to do before making any changes
+- **Build mode** — the agent applies changes directly to the codebase without generating a plan first
+
+---
+
 # What can LLM do with CLI / IDE integration?
 
 ![rmrf](rmrf.png)
@@ -293,5 +300,83 @@ After a agentic session, you can tell it to update the instructions based on wha
 ---
 
 # Plug your LLM to the outside world: MCPs
+
+---
+
+## What is MCP?
+
+MCP: Model Context Protocol
+
+*Standardized Interface for LLMs to the outside world*
+
+---
+
+## MCP frameworks
+
+| Language | Framework |
+|----------|-----------|
+| Python | [`fastmcp`](https://gofastmcp.com/) |
+| Node.js | [`@modelcontextprotocol/sdk`](https://github.com/modelcontextprotocol/typescript-sdk) |
+| Go | [`mark3labs/mcp-go`](https://github.com/mark3labs/mcp-go) |
+| Rust | [`rmcp`](https://github.com/modelcontextprotocol/rust-sdk) |
+
+---
+
+## Contents of an MCP
+
+- Collection of tools
+- Collection of prompts
+
+---
+
+## Tools
+
+```python
+@mcp.tool(
+    title="How Far Is It?",
+    description=(
+        "Calculate the straight-line (great-circle) distance between two places. "
+        "Accepts any place name, city, address, or landmark. "
+        "Returns the distance in both kilometres and miles."
+    ),
+    annotations=ToolAnnotations(
+        readOnlyHint=True,
+        destructiveHint=False,
+        idempotentHint=True,
+        openWorldHint=True,
+    ),
+)
+def how_far_is_it(from_place: str, to_place: str) -> str:
+    ...
+```
+
+---
+
+## Prompts
+
+```python
+@mcp.prompt(
+    title="Pirate mode",
+    description="The LLM talks like a pirate.",
+)
+def pirate_mode() -> str:
+    """Talk like a pirate."""
+    return "Talk like a pirate and include a pirate-themed joke or pun in your response. Do not use any tools from this mcp."
+
+```
+
+---
+
+# Nice, but what can it really do?
+
+---
+
+## Useful MCPs for devs
+
+- Atlassian MCP
+- GitHub MCP
+- Gitlab MCP
+- AWS MCP
+- Context7 MCP
 
 ---
