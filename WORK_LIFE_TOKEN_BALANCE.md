@@ -2,7 +2,18 @@
 
 ## How leverage AI in development
 
-## Khôi Tran - 02.07.2026
+![title](title.png)
+
+### Khôi Tran - 02.07.2026
+
+---
+
+# This presentation
+
+https://tran-engineering.github.io/work-life-token-balance/
+
+![qrcode](qrcode.png)
+
 
 ---
 
@@ -10,24 +21,23 @@
 
 This presentation is not meant to be a definitive guide on AI usage.
 
-The tech is still in its infancy, and the possiblities are endless.
+The tech is still in its infancy, and the possibilities are endless.
+
+![disclaimer](disclaimer.png)
 
 ---
 
 ## Goal
 
-The goal of this presentation is to provide a practical introduction to using LLMs mainly for developers
-for everyday tasks.
+The goal of this presentation is to provide a practical introduction to using LLMs for everyday tasks (mainly for developers).
 
----
-
-## Agenda
-
-1. How can developers interact with LLMs?
+![devs](developer.png)
 
 ---
 
 # How to interact with LLMs
+
+![wrench](wrench.png)
 
 ---
 
@@ -46,17 +56,26 @@ Everyone is familiar with this one:
 - No need to sign up for an account
 - Limited free usage
 
+***
+
+![browser](browser.png)
+
 ---
 
 ## Web browser prompt (2)
 
 Usually gives quick validation for:
 
-- Ideas, assumptions (*What is an LRU cache mostly used for?*)
-- Assessing feasibility (*Can I implement a 3D game in python?*)
-- Technology questions (*What libraries are there to work with geospatial data in ruby?*)
-- Design patterns (*What are the best practices for designing a REST API?*)
-- One time operations (*How do I setup Ollama on my local machine?*)
+- Ideas, assumptions \
+  *What is an LRU cache mostly used for?*
+- Assessing feasibility \
+  *Can I implement a 3D game in python?*
+- Technology questions \
+  *What libraries are there to work with geospatial data in ruby?*
+- Design patterns \
+  *What are the best practices for designing a REST API?*
+- One time operations\
+  *How do I setup Ollama on my local machine?*
 
 ---
 
@@ -66,7 +85,7 @@ Usually weaker for:
 
 - Feedback/Tips on code (requires you to copy/paste code from the browser, doesn't know your codebase, conventions, etc.)
 - Cannot access private information (e.g. your local environment, private repositories)
-- Cannot execute commands, code locally, read log files
+- Cannot execute commands, code locally, read log/error files
 
 ---
 
@@ -74,15 +93,18 @@ Usually weaker for:
 
 Many popular IDEs now have extensions that allow you to interact with LLMs directly from your editor.
 
+![IDE ex](ide.png)
+
 ---
 
-## General conventions in CLI and IDE extensions
+## General tips in CLI and IDE extensions
 
 - Use `@<FILE>` to add a specific file as context
-- Use `/` to trigger slash commands (e.g. `/help`, `/clear`, `/review`)
+- Use `/` to trigger commands and skills (e.g. `/help`, `/clear`, `/review`)
 - Attach images or screenshots directly into the chat (most tools support drag & drop or paste)
 - Start a new conversation to reset context when switching tasks
 - Be as specific as possible: "refactor this function to reduce nesting" beats "improve this"
+- When the context window limit is reached, **compacting** will occur!
 
 ---
 
@@ -139,47 +161,78 @@ Zed is a minimal rust based editor. With a penchant to AI features.
 
 # What can LLM do with CLI / IDE integration?
 
+![rmrf](rmrf.png)
+
 ---
 
-## The vibe coder: Build everything from scratch
+## Developers can focus more on coding
 
-TODO: Example
+- **Knows your codebase** — reads files, symbols, and project structure directly
+- **Executes commands** — runs tests, builds, linters, and scripts on your behalf
+- **Reads local context** — access logs, error traces, and config files without copy/pasting
+- **Edits files directly** — applies changes inline instead of you having to transfer code manually
+- **Stays in your flow** — no context switching between browser and editor
+- **Works with private code** — nothing leaves your machine unless you choose it
+
+---
+
+## OMG are there any guardrails?!
+
+- **Permission prompts** — destructive or irreversible commands (e.g. `rm`, `git push`) require explicit user approval before running
+- **Diff review** — file edits are shown as diffs so you can inspect and reject changes before accepting
+- **No auto-push** — the agent won't push to remote or open PRs unless you ask it to
+- **Scoped context** — the agent only reads files you've shared or that are in the working directory
+- **You stay in control** — the agent proposes, you decide; it does not act autonomously by default
 
 ---
 
 ## Smaller code changes, refactors
 
-TODO: Example
+`Extract the retry logic in api_client.rb into a separate module and add exponential backoff`
+
+---
+
+## Write tests
+
+`Write unit tests for the UserService class covering the happy path and edge cases for invalid input`
 
 ---
 
 ## Explaining
 
-TODO: Explain some difficult to understand code
+`Explain what this file does and why the locking mechanism is needed here`
 
 ---
 
 ## Analysing
 
-TODO: Analyse exception cases if it makes sense
+`Look at this stack trace and the relevant source files, and tell me what is causing the NullPointerException`
 
 ---
 
 ## Reviewing
 
-TODO: Example Review everything / branch / pr
+`Review the changes on this branch and flag any bugs, security issues, or missing edge cases`
 
 ---
 
 ## Write documentation
 
-TODO: Example write documentation
+`Generate a README for this project that explains what it does, how to run it, and how to contribute`
 
 ---
 
 ## Draw diagrams
 
-TODO: Example
+`Create a Mermaid sequence diagram showing the flow of a user login request through the auth middleware`
+
+---
+
+## I'm too lazy to RTFM of git
+
+- `Revert the last commit`
+- `Commit and push`
+- `Rebase this on develop branch and fix conflicts`
 
 ---
 
@@ -187,7 +240,58 @@ TODO: Example
 
 ---
 
-# Plug your LLM to the outside world: MCPs
+## User files
+
+Instructions that apply across **all your projects**:
+
+| Tool        | Path                           |
+|-------------|--------------------------------|
+| Claude Code | `~/.claude/CLAUDE.md`          |
+| OpenCode    | `~/.config/opencode/AGENTS.md` |
 
 ---
 
+## Project files
+
+Instructions scoped to a **specific project** (commit these to the repo):
+
+| Tool        | Path                               |
+|-------------|------------------------------------|
+| Claude Code | `CLAUDE.md` or `.claude/CLAUDE.md` |
+| OpenCode    | `AGENTS.md`                        |
+
+---
+
+## Ideas for Instructions
+
+- **Coding conventions** — naming style, file structure, preferred patterns
+- **Tech stack** — language versions, frameworks, key libraries in use
+- **How to run the project** — build, test, and lint commands
+- **What to avoid** — deprecated APIs, banned patterns, files not to touch
+- **Review checklist** — what to always check before committing (tests, docs, migrations)
+- **Domain glossary** — project-specific terms and their meaning
+- **Branch / PR conventions** — naming rules, commit message format
+- **Personas** — tone and style when generating docs or commit messages
+
+---
+
+## ... the instructions don't write themselves, do they?
+
+After a agentic session, you can tell it to update the instructions based on what you learned together!
+
+---
+
+## Advantages when using instructions
+
+- **Fewer lookups** — the agent knows your stack upfront and won't ask how to run tests or where config lives
+- **Less back-and-forth** — conventions are set once; you don't need to repeat them every session
+- **Consistent output** — code style, naming, and structure stay uniform across all interactions
+- **Shared with the team** — committing `CLAUDE.md` means every developer gets the same agent behaviour
+- **Saves tokens** — no need to re-explain context in every prompt, keeping conversations focused
+- **Faster onboarding** — new team members get project conventions explained by the agent for free
+
+---
+
+# Plug your LLM to the outside world: MCPs
+
+---
