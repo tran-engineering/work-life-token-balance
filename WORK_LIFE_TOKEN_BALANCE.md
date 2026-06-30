@@ -37,6 +37,69 @@ The goal of this presentation is to provide **a practical introduction** to usin
 
 ---
 
+# LLM basics
+
+---
+
+## What is a LLM?
+
+```mermaid
+flowchart LR
+    SP[System Prompt]
+    UP[User Prompt]
+    AC[Additional Context<br>chat history · tools · files]
+
+    SP & UP & AC --> CW
+
+    subgraph CW[Context Window]
+        direction TB
+        T[Tokens]
+    end
+
+    CW --> LLM[LLM]
+    LLM --> OUT[Output]
+```
+
+---
+
+## Contents of an LLM
+
+An LLM is a single neural network stored as a large file (1.5 GB – 230 GB). It consists of many layers of parameters (weights) that, given a token sequence as input, predict the next token as output.
+
+Publicly available models can be downloaded from Hugging Face.
+
+---
+
+## System prompt
+
+The **system prompt** is a *hard-coded static instruction for the model*.
+
+Leaked system prompts of some popular models:
+https://github.com/asgeirtj/system_prompts_leaks
+
+### Example
+
+https://github.com/asgeirtj/system_prompts_leaks/blob/main/OpenAI/GPT-4.5.md
+
+---
+
+## Why do we have context windows?
+
+Every LLM has a context window size limit.
+The context window is one of the key limitations of a specific LLM.
+
+|Model|Context Window Size (Tokens)|
+|---|---|
+|Claude 4 Opus / Sonnet / Haiku|200k|
+|OpenAI GPT-4o|128k|
+|Google Gemini|1M|
+|Meta Llama|128k|
+|Mistral small / large|32K/128K|
+
+*George Orwell's 1984: 117K tokens, 88K words, 540 kb, 300 pages*
+
+---
+
 # How developers can interact with LLMs
 
 ![wrench](wrench.png)
@@ -216,43 +279,68 @@ Other modes include:
 
 ## Smaller code changes, refactors
 
-`Extract the retry logic in api_client.rb into a separate module and add exponential backoff`
+```
+Extract the retry logic in api_client.rb into a separate module and add exponential backoff
+```
 
 ---
 
 ## Write tests
 
-`Write unit tests for the UserService class covering the happy path and edge cases for invalid input`
+```
+Write unit tests for the UserService class covering the happy path and edge cases for invalid input
+```
 
 ---
 
 ## Explaining
 
-`Explain what this file does and why the locking mechanism is needed here`
+```
+Explain what this file does and why the locking mechanism is needed here
+```
+
 
 ---
 
 ## Analysing
 
-`Look at this stack trace and the relevant source files, and tell me what is causing the NullPointerException`
+```
+Look at this stack trace and the relevant source files, and tell me what is causing the NullPointerException
+```
+
 
 ---
 
 ## Reviewing
 
-`Review the changes on this branch and flag any bugs, security issues, or missing edge cases`
+```
+Review the changes on this branch and flag any bugs, security issues, or missing edge cases
+```
 
 ---
 
 ## Write documentation
 
-`Generate a README for this project that explains what it does, how to run it, and how to contribute`
+```
+Generate a README for this project that explains what it does, how to run it, and how to contribute
+```
 
 ---
 
 ## Draw diagrams
 
-`Create a Mermaid sequence diagram showing the flow of a user login request through the auth middleware`
+```
+Create a funny MermaidJS pie chart
+```
+
+```mermaid
+pie title Where my tokens actually go?
+    "Explaining the same bug twice" : 30
+    "Generating boilerplate I'll delete" : 25
+    "Asking Claude to be more concise" : 20
+    "Actual useful work" : 15
+    "Accidentally pasting the whole repo" : 10
+```
 
 ---
 
@@ -278,12 +366,12 @@ Skills are reusable, named prompts or workflows you invoke with a slash command 
 
 Create a Markdown file — the filename becomes the slash command:
 
-| Scope   | Path                                      | Invocation        |
-|---------|-------------------------------------------|-------------------|
-| Project | `.claude/commands/<skill-name>.md`        | `/skill-name`     |
-| User    | `~/.claude/commands/<skill-name>.md`      | `/skill-name`     |
+| Scope   | Path                                      |
+|---------|-------------------------------------------|
+| Project | `.claude/commands/<skill-name>.md`        |
+| User    | `~/.claude/commands/<skill-name>.md`      |
 
-The file body is the prompt sent to the model when you invoke the skill. Use `$ARGUMENTS` to pass inline arguments (e.g. `/deploy production`).
+You can invoke a skill by typing `/<skill-name>` in the chat input.
 
 ---
 
@@ -292,11 +380,8 @@ The file body is the prompt sent to the model when you invoke the skill. Use `$A
 | Skill | What it does |
 | --- | --- |
 | `/init` | Generate a `CLAUDE.md` for the current project |
-| `/code-review` | Review the current diff for bugs and cleanups |
 | `/security-review` | Security-focused review of pending changes |
-| `/review` | Review a GitHub pull request by number |
-| `/run` | Launch the project and verify a change in the running app |
-| `/verify` | Confirm a fix works by exercising the app |
+| `/review` | Review a branch / PR |
 | `/simplify` | Refactor changed code for clarity and efficiency |
 
 ---
