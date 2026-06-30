@@ -173,10 +173,17 @@ Zed is a minimal rust based editor. With some AI features out of the box.
 
 ---
 
-## Plan vs. Build mode
+## Plan vs. other modes
 
-- **Plan mode** — the agent generates a plan of what to do before making any changes
-- **Build mode** — the agent applies changes directly to the codebase without generating a plan first
+- **Plan mode** - the agent generates a plan of what to do before making any changes
+- **Other modes** - the agent has some autonomous permissions
+
+Other modes include:
+
+- Ask before edits
+- Edit automatically
+- Auto mode
+- Bypass all permissions (YOLO mode)
 
 ---
 
@@ -186,7 +193,7 @@ Zed is a minimal rust based editor. With some AI features out of the box.
 
 ---
 
-## Developers can focus more on coding
+## Developers can focus more time in the code base itself
 
 - **Knows your codebase** — reads files, symbols, and project structure directly
 - **Executes commands** — runs tests, builds, linters, and scripts on your behalf
@@ -197,7 +204,7 @@ Zed is a minimal rust based editor. With some AI features out of the box.
 
 ---
 
-## OMG are there any guardrails?!
+## OMG! are there any guardrails?!
 
 - **Permission prompts** — destructive or irreversible commands (e.g. `rm`, `git push`) require explicit user approval before running
 - **Diff review** — file edits are shown as diffs so you can inspect and reject changes before accepting
@@ -257,11 +264,58 @@ Zed is a minimal rust based editor. With some AI features out of the box.
 
 ---
 
-# The next level: Tell the LLM your conventions
+# Skills (Claude only)
 
 ---
 
-## User files
+## Skills
+
+Skills are reusable, named prompts or workflows you invoke with a slash command (e.g. `/code-review`, `/security-review`) — they encode expert knowledge so you don't have to re-explain the same task every time. They are a **Claude Code-specific** feature; OpenCode does not currently support skills.
+
+---
+
+## How to define skills
+
+Create a Markdown file — the filename becomes the slash command:
+
+| Scope   | Path                                      | Invocation        |
+|---------|-------------------------------------------|-------------------|
+| Project | `.claude/commands/<skill-name>.md`        | `/skill-name`     |
+| User    | `~/.claude/commands/<skill-name>.md`      | `/skill-name`     |
+
+The file body is the prompt sent to the model when you invoke the skill. Use `$ARGUMENTS` to pass inline arguments (e.g. `/deploy production`).
+
+---
+
+## Out-of-the-box
+
+| Skill | What it does |
+| --- | --- |
+| `/init` | Generate a `CLAUDE.md` for the current project |
+| `/code-review` | Review the current diff for bugs and cleanups |
+| `/security-review` | Security-focused review of pending changes |
+| `/review` | Review a GitHub pull request by number |
+| `/run` | Launch the project and verify a change in the running app |
+| `/verify` | Confirm a fix works by exercising the app |
+| `/simplify` | Refactor changed code for clarity and efficiency |
+
+---
+
+## Sample skill ideas
+
+- `/standup` — summarise yesterday's git commits into a standup update
+- `/ticket $ARGUMENTS` — create a Jira ticket from a short description
+- `/changelog` — generate a changelog from commits since the last tag
+- `/onboard` — explain the repo structure, stack, and how to run the project to a new joiner
+- `/pr-description` — draft a pull request title and body from the current diff
+
+---
+
+# The next level: Tell the LLM how to work with **YOU**
+
+---
+
+## User instructions
 
 Instructions that apply across **all your projects**:
 
@@ -272,14 +326,14 @@ Instructions that apply across **all your projects**:
 
 ---
 
-## Project files
+## Project specific instructions
 
 Instructions scoped to a **specific project** (commit these to the repo):
 
-| Tool        | Path                               |
-|-------------|------------------------------------|
-| Claude Code | `CLAUDE.md` or `.claude/CLAUDE.md` |
-| OpenCode    | `AGENTS.md`                        |
+| Tool        | Path                                   |
+|-------------|----------------------------------------|
+| Claude Code | `./CLAUDE.md` or `./.claude/CLAUDE.md` |
+| OpenCode    | `./AGENTS.md`                          |
 
 ---
 
@@ -313,6 +367,16 @@ After a agentic session, you can tell it to update the instructions based on wha
 
 ---
 
+## Tips for writing instructions
+
+- **Be specific** — vague instructions produce vague behavior; name files, functions, or patterns explicitly
+- **Reference files directly** — use `@filename` or paste the path so the model can read current content rather than relying on your paraphrase of it
+- **Include examples** — show a before/after or a sample output; one concrete example beats three sentences of description
+- **State constraints, not just goals** — say what to *avoid* (e.g. "don't modify tests", "keep the existing API surface") as well as what to do
+- **Separate concerns** — one instruction per bullet; bundled instructions get partially ignored
+
+---
+
 # Plug your LLM to the outside world: MCPs
 
 ---
@@ -338,12 +402,14 @@ MCP: Model Context Protocol
 
 ## Contents of an MCP
 
-- Collection of tools
-- Collection of prompts
+- Set of tools
+- Set of prompts
 
 ---
 
 ## Tools
+
+A MCP tool is basically a description of a function and its parameters and its implementation.
 
 ```python
 @mcp.tool(
