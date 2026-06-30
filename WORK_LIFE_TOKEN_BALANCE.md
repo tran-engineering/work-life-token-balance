@@ -578,8 +578,7 @@ def pirate_mode() -> str:
 ## Pricing
 
 - Most tools charge per **token** (input + output) — costs add up fast with large context windows
-- **Claude Code** uses a subscription model (no per-token billing for the end user)
-- API access is cheapest but requires integration work; managed tools (Copilot, Cursor) bundle the cost
+- **Claude Code** uses a subscription model, typically there is a 6 hour token window
 - Agentic loops can burn tokens quickly — a single session with many tool calls can cost several dollars
 
 ---
@@ -588,8 +587,24 @@ def pirate_mode() -> str:
 
 - By default, prompts sent to cloud LLMs **may be used for training** — check your provider's policy
 - Enterprise/API tiers typically offer **zero data retention** and opt-out of training
-- Avoid sending secrets, PII, or confidential business logic to public endpoints
+- Avoid sending secrets or confidential business logic to public endpoints
 - Self-hosted / local models (e.g. Ollama) keep everything on-premise — no data leaves your machine
+
+---
+
+## Tips for privacy
+
+- Files outside your working directory are **never read or sent** — the agent only accesses what you explicitly share or what is in the current project folder
+- Binary files, SSH keys, `.env` files, and anything listed in `.gitignore` are not automatically included in context
+- Use `.agentignore` (same syntax as `.gitignore`) to exclude specific files or directories from ever being sent to the LLM — even if they are inside your working directory
+
+---
+
+## How I use all this stuff
+
+- LLM does boilerplate work, I think about what to do next
+- Inspiration for presentations and code reviews
+- Onboarding myself on new code repositories
 
 ---
 
