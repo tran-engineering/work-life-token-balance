@@ -409,7 +409,7 @@ You can invoke a skill by typing `/<skill-name>` in the chat input.
 
 # The next level: Tell the LLM how to work with **YOU**
 
----https://huggingface.co/mistralai/Ministral-3-8B-Base-2512/tree/main
+---
 
 ## User instructions
 
@@ -442,7 +442,19 @@ Instructions scoped to a **specific project** (commit these to the repo):
 - **Review checklist** — what to always check before committing (tests, docs, migrations)
 - **Domain glossary** — project-specific terms and their meaning
 - **Branch / PR conventions** — naming rules, commit message format
-- **Personas** — tone and style when generating docs or commit messages
+- **Personas** — tone and style when answering, generating docs or commit messages!
+
+---
+
+## Personas
+
+- If you don't like the overly positive or reinforcing tone, tell the model to be more critical, or tell you more directly if it is unsure.
+- Ask it to push back and flag disagreement instead of just agreeing with you
+- Set a verbosity level — "terse, no preamble" vs. "explain trade-offs as you go"
+- Give it a reviewer role — "review this like a security engineer" / "like a senior staff engineer doing a perf review"
+- Match it to your own level — "explain like I'm new to this stack" vs. "skip the basics, I know this codebase"
+- Ban filler — no emojis, no "Perfect!"/"Absolutely right!", no summary recap at the end
+- Set a default stance — favor simple solutions over clever ones, ask before introducing new dependencies
 
 ---
 
@@ -605,6 +617,16 @@ def pirate_mode() -> str:
 - LLM does boilerplate work, I think about what to do next
 - Inspiration for presentations and code reviews
 - Onboarding myself on new code repositories
+
+---
+
+## Beyond coding agents - AI in the CI
+
+- Sourcery - automated code review comments on every PR
+- CodeRabbit - AI-generated PR summaries and review suggestions
+- ContextForge - Manage MCPs for your company / team
+
+Example: https://github.com/docker/model-runner/pull/985
 
 ---
 
