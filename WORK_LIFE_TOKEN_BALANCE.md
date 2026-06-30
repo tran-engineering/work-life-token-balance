@@ -19,9 +19,9 @@ https://tran-engineering.github.io/work-life-token-balance/
 
 ## Disclaimer
 
-This presentation is not meant to be a definitive guide on AI usage.
+This presentation is not meant to be **a definitive guide on AI** usage.
 
-The tech is still in its infancy, and the possibilities are endless.
+The tech is still in its infancy and **many best practices still change everyday**.
 
 ![disclaimer](disclaimer.png)
 
@@ -29,15 +29,15 @@ The tech is still in its infancy, and the possibilities are endless.
 
 ## Goal
 
-The goal of this presentation is to provide a practical introduction to using LLMs for everyday tasks (mainly for developers).
+The goal of this presentation is to provide **a practical introduction** to using LLMs for everyday tasks (mainly for developers).
 
-What's not the focus: How things work under the hood, just the practical stuff. But we can always go on a tangent!
+**What's not the focus**: How things work under the hood, just the practical stuff. But we can always go on a tangent!
 
 ![devs](developer.png)
 
 ---
 
-# How to interact with LLMs
+# How developers can interact with LLMs
 
 ![wrench](wrench.png)
 
@@ -55,7 +55,7 @@ Everyone is familiar with this one:
 
 - Easily accessible everywhere (e.g. also nice on the phone)
 - No need to install anything
-- No need to sign up for an account
+- Signing up for an account is optional
 - Limited free usage
 
 ***
@@ -85,9 +85,9 @@ Usually gives quick validation for:
 
 Usually weaker for:
 
-- Feedback/Tips on code (requires you to copy/paste code from the browser, doesn't know your codebase, conventions, etc.)
-- Cannot access private information (e.g. your local environment, private repositories)
-- Cannot execute commands, code locally, read log/error files
+- Access to **surrounding code and context** (your repo, your local environment, your conventions)
+- Cannot execute **commands, code / config files** locally, read log/error files
+- **Context switching** between browser / CLI / IDE. the human is the copy/paste robot
 
 ---
 
@@ -120,11 +120,15 @@ Usually via extensions:
 
 Inline suggestions out-of-the-box (via GitHub Copilot).
 
+***
+
+![vscodeplug](vscode_plugin.png)
+
 ---
 
 ## VS Code specific tips
 
-Selected text in the editor is usually automatically sent as context to the
+**Selected text in the editor** is automatically sent as context to the
 LLM. If no lines are selected, the currently open file will be sent as context.
 
 ![exception](vscode_context.png)
@@ -133,12 +137,16 @@ LLM. If no lines are selected, the currently open file will be sent as context.
 
 ## JetBrains
 
-JetBrains has its own "AI Assistant" Plugin, which supports:
+JetBrains has its own "AI Assistant" plugin, which supports:
 
 - Junie (JetBrains AI)
 - OpenAI Codex
 - Claude Agent
 - Others via ACP
+
+***
+
+![jbai](jetbrainsai.png)
 
 ---
 
@@ -150,7 +158,11 @@ JetBrains has its own "AI Assistant" Plugin, which supports:
 
 ## Zed
 
-Zed is a minimal rust based editor. With a penchant to AI features.
+Zed is a minimal rust based editor. With some AI features out of the box.
+
+***
+
+![zed](zed.png)
 
 ---
 
