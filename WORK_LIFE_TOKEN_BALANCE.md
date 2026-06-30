@@ -31,6 +31,8 @@ The tech is still in its infancy, and the possibilities are endless.
 
 The goal of this presentation is to provide a practical introduction to using LLMs for everyday tasks (mainly for developers).
 
+What's not the focus: How things work under the hood, just the practical stuff. But we can always go on a tangent!
+
 ![devs](developer.png)
 
 ---
@@ -380,3 +382,42 @@ def pirate_mode() -> str:
 - Context7 MCP
 
 ---
+
+## Tips for working with MCPs
+
+- Save tokens by disabling MCPs you don't need for the current task
+- Prefer MCPs with **focused, well-named tools** — a bloated MCP wastes context on tool descriptions the model never uses
+- **Read the tool list** before a session: knowing what's available helps you ask for exactly the right thing
+- Chain MCPs together — e.g. fetch a Jira ticket, look up the related GitHub PR, then post a comment back, then play "We are the champions" on my computer
+
+---
+
+## DEMO
+
+---
+
+# Considerations for enterprisey setups
+
+---
+
+
+## Pricing
+
+- Most tools charge per **token** (input + output) — costs add up fast with large context windows
+- **Claude Code** uses a subscription model (no per-token billing for the end user)
+- API access is cheapest but requires integration work; managed tools (Copilot, Cursor) bundle the cost
+- Agentic loops can burn tokens quickly — a single session with many tool calls can cost several dollars
+
+---
+
+## Privacy
+
+- By default, prompts sent to cloud LLMs **may be used for training** — check your provider's policy
+- Enterprise/API tiers typically offer **zero data retention** and opt-out of training
+- Avoid sending secrets, PII, or confidential business logic to public endpoints
+- Self-hosted / local models (e.g. Ollama) keep everything on-premise — no data leaves your machine
+- Check whether your company has a **DPA (Data Processing Agreement)** in place with the LLM provider
+
+---
+
+# Thanks
