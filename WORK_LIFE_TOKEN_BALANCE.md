@@ -64,9 +64,20 @@ flowchart LR
 
 ## Contents of an LLM
 
-An LLM is a single neural network stored as a large file (1.5 GB – 230 GB). It consists of many layers of parameters (weights) that, given a token sequence as input, predict the next token as output.
+An LLM is **a single neural network stored as a large file** (1.5 GB – 230 GB). It consists of many layers of parameters (weights) that, given a token sequence as input, predict the next token as output.
 
 Publicly available models can be downloaded from Hugging Face.
+
+They can be run locally using **ollama, DMR (docker model runner), vllm** or other inference engines.
+
+Example: https://huggingface.co/mistralai/Ministral-3-8B-Base-2512/tree/main
+
+---
+
+## Main takeaways
+
+- LLMs are trained statically! An LLM does not learn from user data or interactions.
+- A GPU accelerates inference by parallelizing computations across multiple cores.
 
 ---
 
@@ -85,8 +96,8 @@ https://github.com/asgeirtj/system_prompts_leaks/blob/main/OpenAI/GPT-4.5.md
 
 ## Why do we have context windows?
 
-Every LLM has a context window size limit.
-The context window is one of the key limitations of a specific LLM.
+Every LLM has a context window **size limit**.
+The context window is one of the **key limitations** of a specific LLM.
 
 |Model|Context Window Size (Tokens)|
 |---|---|
@@ -398,7 +409,7 @@ You can invoke a skill by typing `/<skill-name>` in the chat input.
 
 # The next level: Tell the LLM how to work with **YOU**
 
----
+---https://huggingface.co/mistralai/Ministral-3-8B-Base-2512/tree/main
 
 ## User instructions
 
@@ -579,7 +590,6 @@ def pirate_mode() -> str:
 - Enterprise/API tiers typically offer **zero data retention** and opt-out of training
 - Avoid sending secrets, PII, or confidential business logic to public endpoints
 - Self-hosted / local models (e.g. Ollama) keep everything on-premise — no data leaves your machine
-- Check whether your company has a **DPA (Data Processing Agreement)** in place with the LLM provider
 
 ---
 
