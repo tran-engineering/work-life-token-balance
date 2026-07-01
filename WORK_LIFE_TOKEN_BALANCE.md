@@ -633,8 +633,33 @@ def pirate_mode() -> str:
 ## Pricing
 
 - Most tools charge per **token** (input + output) — costs add up fast with large context windows
-- **Claude Code** uses a subscription model, typically there is a 6 hour token window
 - Agentic loops can burn tokens quickly — a single session with many tool calls can cost several dollars
+
+---
+
+## Pricing tiers
+
+| Tool | Plan | Price |
+|------|------|-------|
+| claude.ai | Pro | $20/mo ($100/mo max) |
+| claude.ai | Team | $30/user/mo |
+| GitHub Copilot | Individual | $10/mo |
+| GitHub Copilot | Business | $19/user/mo |
+| GitHub Copilot | Enterprise | $39/user/mo |
+| Cursor | Pro | $20/mo |
+| Cursor | Business | $40/user/mo |
+| Windsurf | Pro | $15/mo |
+| OpenAI API | Pay-per-token | — |
+| Anthropic API | Pay-per-token | — |
+
+---
+
+## Token limit handling
+
+- **Claude Code / claude.ai** — subscription includes a usage quota that resets on a rolling 6-hour window; heavy agentic use can hit the ceiling mid-session
+- **GitHub Copilot** — subscription covers completions and chat; premium model requests (GPT-4o, Claude) have a monthly cap, then fall back to a base model
+- **Cursor / Windsurf** — subscription includes a fixed number of "fast" (premium model) requests per month; once exhausted, requests slow-route to a cheaper model or stop
+- **API (Anthropic / OpenAI)** — no artificial cap; you pay for every token, so cost scales linearly with usage — budget alerts are your only guardrail
 
 ---
 
