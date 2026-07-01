@@ -70,8 +70,6 @@ Publicly available models can be downloaded from Hugging Face.
 
 They can be run locally using **ollama, DMR (docker model runner), vllm** or other inference engines.
 
-Example: https://huggingface.co/mistralai/Ministral-3-8B-Base-2512/tree/main
-
 ---
 
 ## Main takeaways
@@ -81,16 +79,61 @@ Example: https://huggingface.co/mistralai/Ministral-3-8B-Base-2512/tree/main
 
 ---
 
-## System prompt
+## How a LLM is produced
 
-The **system prompt** is a *hard-coded static instruction for the model*.
+```mermaid
+flowchart LR
+    C[Code] --> W[Weights]
+    D[Training Data] --> W
+    E[Months of training<br>on super computer] --> W
+    W --> M[LLM]
+    A[Neural Architecture] --> M
+```
 
-Leaked system prompts of some popular models:
-https://github.com/asgeirtj/system_prompts_leaks
+---
 
-### Example
+## Openness of a LLM
 
-https://github.com/asgeirtj/system_prompts_leaks/blob/main/OpenAI/GPT-4.5.md
+| | Closed Source | Open Weights | Open Source |
+|---|---|---|---|
+| Neural Architecture | ✗ | ✓ | ✓ |
+| Weights | ✗ | ✓ | ✓ |
+| Code | ✗ | ✗ | ✓ |
+| Training Data | ✗ | ✗ | ✓ |
+
+Examples: 
+
+- https://huggingface.co/mistralai/Ministral-3-8B-Base-2512/tree/main
+- https://huggingface.co/bigscience/bloom
+
+---
+
+## Models and their Openness
+
+| Model | Provider | Openness |
+|-------|----------|----------|
+| GPT-4o | OpenAI | Closed Source |
+| Claude Sonnet / Opus | Anthropic | Closed Source |
+| Gemini 2.5 Pro | Google | Closed Source |
+| Llama 4 | Meta | Open Weights |
+| Mistral | Mistral AI | Open Weights |
+| Qwen 3 | Alibaba | Open Weights |
+| DeepSeek R2 | DeepSeek | Open Weights |
+| Gemma 4 | Google | Open Weights |
+| OLMo 2 | Allen AI | Open Source |
+| BLOOM | BigScience | Open Source |
+
+---
+
+## Model comparison metrics
+
+- **Context window** — how much input the model can read at once
+- **Benchmark scores** — standardized tests (MMLU, HumanEval, MATH) measuring reasoning, coding, and knowledge
+- **Speed** — tokens per second; matters for interactive use and agentic loops
+- **Cost** — price per million input/output tokens
+- **Multimodal** — can the model understand images, audio, or video?
+
+Aggregated comparisons: https://artificialanalysis.ai
 
 ---
 
